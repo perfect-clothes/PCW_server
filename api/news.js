@@ -5,7 +5,9 @@ const request = require('request');
 const router = express.Router();
 
 let getNews = (req, res, next) => {
-    console.log(req.body);
+    if (!req) {
+        return res.status(400).json({ err: "REQUEST ERROR!" });
+    }
 
     // api 설정
     const CLIENT_ID = process.env.NEWS_API_ID;
@@ -16,8 +18,7 @@ let getNews = (req, res, next) => {
         start: 1,
         sort: 'sim'
     };
-    console.log(PARAMETER.query);
-    //const URL = 'https://openapi.naver.com/v1/search/news?query=' + encodeURI(PARAMETER.query);
+    
     const URL = `https://openapi.naver.com/v1/search/news.json?query=${PARAMETER.query}&display=${PARAMETER.display}&start=${PARAMETER.start}&sort=${PARAMETER.sort}`;
     const OPTION = {
         uri: URL,
@@ -38,9 +39,12 @@ let getNews = (req, res, next) => {
             }
 
             return res.status(200).send(newsData);
+        } else {
+            res.status(response.statusCode).end();
+            console.log('error = ' + response.statusCode);
         }
     });
-}
+};
 
 router.post('/', getNews);
 

@@ -80,7 +80,7 @@ let getWeather = (req, res, next) => {
             res.status(response.statusCode).end();
             console.log('error = ' + response.statusCode);
         }
-    })
+    });
 };
 
 router.post('/', getWeather);

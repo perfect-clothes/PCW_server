@@ -57,5 +57,5 @@ exports.clothesLookup = (req, res, next) => {
             weatherData: req.weatherData,
             clothesData: clothesData
         });
-    })
-}
+    });
+};
