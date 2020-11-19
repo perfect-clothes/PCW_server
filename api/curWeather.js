@@ -8,7 +8,9 @@ const router = express.Router();
 
 // getWeather() : 날씨 가져오는 콜백
 let getWeather = (req, res, next) => {
-    console.log(req.body);
+    if (!req) {
+        return res.status(400).json({ err: "REQUEST ERROR!" });
+    }
 
     const latitude = req.body.latitude; // 위도
     const longitude = req.body.longitude; // 경도
